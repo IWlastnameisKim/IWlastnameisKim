@@ -2,9 +2,7 @@
 **Languages and Tools:** 
 
 <p>
-  <a href="https://github.com/jiman94">
-    <img width="55%" align="right" alt="jiman94's github stats" src="https://github-readme-stats.vercel.app/api?username=jiman94&show_icons=true&hide_border=true" />
-  </a>
+
 
   <code><img width="15%" src="https://www.vectorlogo.zone/logos/java/java-ar21.svg"></code>
   <code><img width="15%" src="https://www.vectorlogo.zone/logos/springio/springio-ar21.svg"></code>
