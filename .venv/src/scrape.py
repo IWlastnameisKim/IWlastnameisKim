@@ -45,7 +45,7 @@ def Count() :
             try :
                 gnbname = driver.find_element(By.XPATH, f'//*[@id="__layout"]/div/div[3]/header/div[2]/div[1]/nav/ul/li[{i}]')
                 if gnbname.text != "" :
-                    print(gnbname.text)
+                    pass
             except :
                 break
 
@@ -113,24 +113,6 @@ def slide_arrow() :
 
 
 
-
-
-
-# def benefit() :
-#     try :
-#         action.move_to_element(driver.find_element(By.CLASS_NAME, "benefits-section")).perform()
-#         time.sleep(2)
-#         if driver.find_element(By.XPATH, f'//*[@id="cSection"]/div[1]/div[2]/div[2]/div/div/div[1]/p').text != "유플러스 이벤트를 만나보세요" :
-#             print("베네핏 타이틀 에러")
-#         else : pass
-#         benefit_frame = driver.find_elements(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[2]/div/div/div[2]')
-#         for a in len(benefit_content) :
-#             benefit_content = benefit_frame.find_elements(By.XPATH, '/div[@Class="item-box type-long')
-#             print(len(benefit_content))
-#
-#
-#     except Exception as E : print(E)
-
 def benefit():
     try:
         action.move_to_element(driver.find_element(By.CLASS_NAME, "benefits-section")).perform()
@@ -147,7 +129,10 @@ def benefit():
             a = 1
             for i in benefit_content :
                 benefit_title = i.get_attribute("data-gtm-click-text")
-                print(a,":",benefit_title)
+                if benefit_title == "" :
+                    print("베네핏 에러")
+                    break
+
                 a += 1
 
     except Exception as E:
@@ -237,14 +222,6 @@ def Device_recommend() :
                 tablist_Content_detail = driver.find_element(By.XPATH, f'//*[@id="recomm-tabcon-0{i}"]/ul/li[{b}]')
                 if tablist_Content_detail.get_attribute("href") == "" :
                     print("연결된 페이지 없음")
-
-
-
-
-
-
-
-
         except Exception as E :
             print(E)
 
