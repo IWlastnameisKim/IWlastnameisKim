@@ -187,19 +187,89 @@ def blurbTest() :
     blurb_Title = driver.find_elements(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[4]/div/div[1]/div[1]/p')
 
     for i in blurb_Title :
-        print(i.text)
+        if i.text == "" :
+            print("blurb 영역 타이틀 미노출")
+            break
 
     if driver.find_elements(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[4]/div/div[2]/img') is None :
         print("Blurb img Error")
     if driver.find_elements(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[4]/div/div[2]/img') is None :
         print("Blurb bg img Error")
 
+def promotion_section() :
+    promotion_section_title = driver.find_element(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[5]/div/div[1]')
+    action.move_to_element(promotion_section_title).perform()
+    time.sleep(2)
+    title_text = promotion_section_title.find_elements(By.CLASS_NAME, 'h1')
+    for i in title_text :
+        if i.text == "" :
+            print("프로모션 타이틀 에러")
+            break
+
+    Content_Total_Count = driver.find_elements(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[5]/div/div[2]/ul/li')
+    # print(len(Content_Total_Count))
+    for i in (1,len(Content_Total_Count)) :
+        try : driver.find_element(By.XPATH, f'//*[@id="cSection"]/div[1]/div[2]/div[5]/div/div[2]/ul/li[{i}]/a/img')
+        except : print(i,"번째 이미지 없음")
+    # for i in Content :
+    #     print(i)
+
+def Device_recommend() :
+    title = driver.find_element(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[6]/div/div/div[1]')
+    action.move_to_element(title).perform()
+    time.sleep(2)
+    title_Text = title.find_elements(By.XPATH, './/p')
+    for i in title_Text :
+        if i.text == "" :
+            print("Error")
+            break
+
+    tablist = driver.find_element(By.XPATH, '//*[@id="cSection"]/div[1]/div[2]/div[6]/div/div/div[2]')
+    tablist_Count = tablist.find_elements(By.XPATH, './/li')
+    for i in range(1,len(tablist_Count)+1) :
+        try :
+            driver.find_element(By.XPATH, f'//*[@id="cSection"]/div[1]/div[2]/div[6]/div/div/div[2]/ul/li[{i}]/a').text
+            driver.find_element(By.XPATH, f'//*[@id="cSection"]/div[1]/div[2]/div[6]/div/div/div[2]/ul/li[{i}]/a').click()
+            time.sleep(1)
+            driver.find_element(By.XPATH, f'//*[@id="recomm-tabcon-0{i}"]/ul')
+            tablist_Content = driver.find_elements(By.XPATH, f'//*[@id="recomm-tabcon-0{i}"]/ul/li')
+            for b in range(1,len(tablist_Content)+1) :
+                tablist_Content_detail = driver.find_element(By.XPATH, f'//*[@id="recomm-tabcon-0{i}"]/ul/li[{b}]')
+                if tablist_Content_detail.get_attribute("href") == "" :
+                    print("연결된 페이지 없음")
+
+
+
+
+
+
+
+
+        except Exception as E :
+            print(E)
+
+def HlepDesk() :
+    HelpDesk_title = f'//*[@id="CUST"]/div[1]/p'
+    action.move_to_element(driver.find_element(By.XPATH, HelpDesk_title)).perform()
+    time.sleep(1)
+    try :
+        HelpDesk_Content = f'//*[@id="CUST"]/div[2]/div'
+        for i in range(1, len(driver.find_elements(By.XPATH, HelpDesk_Content))+1) :
+            driver.find_element(By.XPATH, HelpDesk_Content+f'[{i}]'+'/i/img')
+
+
+    except Exception as E :
+        print(E)
+
 if __name__ == '__main__' :
-    # Count()
-    # slide_Control()
-    # slide_arrow()
-    # benefit()
-    # paymentsection()
+    Count()
+    slide_Control()
+    slide_arrow()
+    benefit()
+    paymentsection()
     blurbTest()
+    promotion_section()
+    Device_recommend()
+    HlepDesk()
 
 
